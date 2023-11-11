@@ -14,7 +14,7 @@ function Hero({ setOpen, banner }: any) {
                 {/* <div className="absolute top-[100px] 1000px:top-[unset] 1500px:h-[700px] 1500px:w-[700px] 1100px:h-[600px] 1100px:w-[600px] h-[40vh] left-5 w-[40vh] hero_animation rounded-[50%] 1100px:right-8 1500px:left-14"></div> */}
                 <div className="pt-50 1000px:w-[60%]  justify-center md:justify-start flex flex-col items-center 1000px:mt-[0px] text-center 1000px:text-left min-h-[70vh]">
                     <h2 data-aos="fade-up" data-aos-delay="50" className="font-Poppins dark:text-white text-[#000000c7] text-[30px] px-3 w-full 1000px:text-[50px] font-[600] py-2 1000px:leading-[75px] 1500px:w-[60%] 1100px:w-[78%]">
-                    PRIME <p className='text-[#ffcc02] underline'>SCHOOL</p>
+                    QKRUN <p className='text-[#ffcc02] underline'>SCHOOL</p>
                     </h2>
                     <br />
                     <p data-aos="fade-up" data-aos-delay="100" className="dark:text-[#edfff4] text-[#000000ac] font-Poppins font-[600] text-[18px] 1500px:!w-[55%] 1100px:!w-[78%] p-[10px] md:p-[0px]">
