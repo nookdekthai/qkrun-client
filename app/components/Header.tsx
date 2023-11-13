@@ -105,7 +105,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                         height={80}
                         alt=""
                       />
-                      Qkrun School
+                        Qkrun
                     </Link>
                   </div>
                   <div className="flex items-center">
