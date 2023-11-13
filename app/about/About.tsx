@@ -6,16 +6,13 @@ const About = () => {
     <div className="text-black dark:text-white">
       <br />
       <h1 className={`${styles.title} 800px:!text-[45px]`}>
-        What is <span className="text-gradient">PrimeSchool</span>
+        What is <span className="text-gradient">Qkrun</span>
       </h1>
 
       <br />
       <div className="w-[95%] 800px:w-[85%] m-auto">
         <p className="text-[18px] font-Poppins">
-          โค้ชเนสผู้มีประสบการณ์ในตลาด Forex ยาวนานถึง 7 ปี
-          ไม่อยากให้มือใหม่่เสียเงินไปกับคำว่าไม่รู้จนถึงขั้นเลิกเทรด
-          เราคำนึงถึงความไม่รู้ว่าเป็นปัจจัยที่สามารถเเก้ไขได้
-          เพียงคุณลงทุนใน "ตัวเอง" ให้เพียงพอ ก่อนจะเทรดจริง
+        Qkrun
           <br />
           <br />
           เหตุนี้ทางก็ได้คิดจะช่วยเหลือมือใหม่ เพื่อให้ไม่ต้องเสียค่าครูเป็นจำนวนเงินเยอะ
@@ -44,7 +41,7 @@ const About = () => {
 
         </p>
         <br />
-        <span className="text-[22px]">PrimeSchool&apos;</span>
+        <span className="text-[22px]">Qkrun&apos;</span>
         <br />
         <br />
         <h5 className="text-[18px] font-Poppins">
