@@ -3,18 +3,18 @@ import Home from "./components/HomeNew/Home";
 
 
 export const metadata = {
-  title: 'PrimeSchool สถาบันสอนภาษาอังกฤษชั้นนำ',
-  description: 'เราคือสถาบันสอนภาษาอังกฤษชั้นนำโดยครูผู้เชี่ยวชาญ',
-  keywords : 'Primeschool , คอร์สเรียนภาษาอังกฤษ , คอร์สอังกฤษ ม ต้น , คอร์สสอน Toeic ',
+  title: 'Qkrun สถาบันสอนชั้นนำ',
+  description: 'เราคือสถาบันสอนนโดยครูผู้เชี่ยวชาญ',
+  keywords : 'Qkrun , คอร์สเรียนภาษาอังกฤษ , คอร์สเรียน , คอร์สสอน Toeic ',
   openGraph: {
-    title: 'PrimeSchool สถาบันสอนภาษาอังกฤษชั้นนำ',
-    description: 'เราคือสถาบันสอนภาษาอังกฤษชั้นนำโดยครูผู้เชี่ยวชาญ',
+    title: 'Qkrun สถาบันสอนชั้นนำ',
+    description: 'เราคือสถาบันสอนชั้นนำโดยครูผู้เชี่ยวชาญ',
     url: 'https://www.primeschool.online',
     
-    siteName: 'PrimeSchool',
+    siteName: 'Qkrun',
     images: [
       {
-        url: 'https://res.cloudinary.com/de6lgysk2/image/upload/v1699429761/yiu1tnlnoevnh1n55kc1.jpg',
+        url: 'https://res.cloudinary.com/de6lgysk2/image/upload/v1699860032/qbedtxwgwqyxeofui6n5.jpg',
         width: 800,
         height: 600,
       },
@@ -24,9 +24,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary',
-    title: 'PrimeSchool สถาบันสอนภาษาอังกฤษชั้นนำ',
-    description: 'เราคือสถาบันสอนภาษาอังกฤษชั้นนำโดยครูผู้เชี่ยวชาญกว่า 10 ปี',
-    images: ['https://res.cloudinary.com/de6lgysk2/image/upload/v1699429761/yiu1tnlnoevnh1n55kc1.jpg'],
+    title: 'Qkrun สถาบันสอนชั้นนำ',
+    description: 'เราคือสถาบันสอนภชั้นนำโดยครูผู้เชี่ยวชาญกว่า 10 ปี',
+    images: ['https://res.cloudinary.com/de6lgysk2/image/upload/v1699860032/qbedtxwgwqyxeofui6n5.jpg'],
   },
 }
 
