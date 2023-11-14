@@ -25,7 +25,7 @@ const BlogContent = ({ slug, blog }: Props) => {
 
     return (
             <>
-                <Header activeItem={2} open={open} setOpen={setOpen} route={route} setRoute={setRoute} />
+                <Header activeItem={3} open={open} setOpen={setOpen} route={route} setRoute={setRoute} />
                 <div className="w-full grid 800px:grid-cols-10">
                     <Heading
                         title={data?.title}
