@@ -92,20 +92,20 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                 : "w-full border-b dark:border-[#ffffff1c] h-[80px] z-[80] dark:shadow"
                 }`}
             >
-              <div className="w-[95%] 800px:w-[92%] m-auto h-full">
-                <div className="w-full h-[80px] flex items-center justify-between p-3 pl-0 md:pl-3">
+              <div className="w-[95%] 800px:w-[92%] m-auto h-full  ">
+                <div className="w-full h-[80px] flex items-center justify-between p-3 pl-0 md:pl-5">
                   <div>
                     <Link
                       href={"/"}
-                      className={`text-[18px] md:text-[25px] flex items-center font-Poppins font-[500] text-black dark:text-white`}
+                      className={`text-[18px] md:text-[25px] flex items-center font-Poppins font-[500] text-black dark:text-white mx-3`}
                     >
-                      <Image
+                      <Image className=" mr-2"
                         src={'/bird.png'}
                         width={60}
-                        height={80}
+                        height={60}
                         alt=""
                       />
-                      Qkrun School
+                        QKRUN
                     </Link>
                   </div>
                   <div className="flex items-center">
