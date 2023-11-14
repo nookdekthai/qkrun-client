@@ -10,7 +10,7 @@ type Props = {
 
 export async function generateStaticParams() {
     const response = await fetch(`${process.env.SERVER_URI}/api/v1/get-all-blog`).then((res) => res.json())
-    const blogs = response.result
+    const blogs = response?.result || []
     return blogs.map((blog) => ({
         slug: blog.slug,
     }))
