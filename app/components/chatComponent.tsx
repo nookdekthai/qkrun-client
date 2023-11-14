@@ -20,7 +20,7 @@ export default function ChatComponent() {
                             message.role === "assistant"
                             ?
                             <h3 className="text-lg font-semibold mt-2">
-                                GPT-4
+                                GPT-3
                             </h3>
                             :
                             <h3 className="text-lg font-semibold mt-2">
