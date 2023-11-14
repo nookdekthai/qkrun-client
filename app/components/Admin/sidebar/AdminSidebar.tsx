@@ -27,6 +27,8 @@ import avatarDefault from "../../../../public/assests/avatar.png";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
+import ArtTrackIcon from '@mui/icons-material/ArtTrack';
+import ArticleIcon from '@mui/icons-material/Article';
 import { useTheme } from "next-themes";
 import { AiFillFileAdd } from "react-icons/ai";
 
@@ -233,6 +235,20 @@ const Sidebar = () => {
               title="Live Ebook"
               to="/admin/ebook"
               icon={<InsertDriveFileIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Create Blog"
+              to="/admin/create-blog"
+              icon={<ArtTrackIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Live Blog"
+              to="/admin/blogs"
+              icon={<ArticleIcon />}
               selected={selected}
               setSelected={setSelected}
             />

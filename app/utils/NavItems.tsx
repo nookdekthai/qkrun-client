@@ -15,6 +15,10 @@ export const navItemsData = [
     url: "/ebook",
   },
   {
+    name: "Blog",
+    url: "/blog",
+  },
+  {
     name: "About",
     url: "/about",
   },
