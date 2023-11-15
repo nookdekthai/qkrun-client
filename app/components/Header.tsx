@@ -46,7 +46,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
           });
           
           setTimeout(()=> {
-            refetch();
+            refetch?.();
           },2000)
         }
       }

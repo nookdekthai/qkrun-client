@@ -38,9 +38,6 @@ function Home({ webInfo }: any) {
 
     return (
         <div>
-
-         
-
             <Header
                 open={open}
                 setOpen={setOpen}

@@ -23,14 +23,14 @@ const item = [
 const WhyLearnCourse = () => {
     return (
         <>
-            <div className="w-full bg-[#fde6cb] p-10 pb-20 ">
+            <div className="w-full bg-[#c1f2f4] p-10 pb-20 ">
                 <div className="w-full" data-aos="fade-down" data-aos-delay="500">
                     <p className="text-[#292929] text-center font-bold text-[30px] mt-10">Why learn with our courses?</p>
                     <p className="text-[#292929] text-center text-sm mb-16">คอร์สเรียนของเราดียังไง</p>
                 </div>
                 <div className='flex flex-col md:flex-row gap-8 justify-center items-center text-black' data-aos="fade-down" data-aos-delay="1000" >
                     {
-                        item.map(ele => <div key={ele.title} className="w-[376px] backdrop-blur border dark:border-[#ffffff1d] border-[#00000015] dark:shadow-[bg-slate-700] shadow-sm dark:shadow-inner h-[330px] bg-[#ffc785] rounded-xl text-[#4f4f4f] p-10 hover:bg-white hover:text-black">
+                        item.map(ele => <div key={ele.title} className="w-[376px] backdrop-blur border dark:border-[#ffffff1d] border-[#00000015] dark:shadow-[bg-slate-700] shadow-sm dark:shadow-inner h-[330px] bg-[#60bac0] rounded-xl text-[#FFFF] p-10 hover:bg-white hover:text-black">
                             <div className="flex mt-3 items-center justify-center flex-col gap-4">
                                 <div>
                                     <Image

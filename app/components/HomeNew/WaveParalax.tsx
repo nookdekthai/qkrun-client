@@ -2,7 +2,7 @@ import React from 'react'
 
 function WaveParalax() {
     return (
-        <div style={{position: 'absolute', zIndex: 9999}} className='bottom-0 w-full'>
+        <div style={{position: 'absolute', zIndex: 10}} className='bottom-0 w-full'>
             <svg
                 data-aos="fade-up" data-aos-delay="50"
                 className="waves "
