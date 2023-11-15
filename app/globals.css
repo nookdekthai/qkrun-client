@@ -262,6 +262,7 @@ body {
 }
 
 .spotlight__answer {
+  color: #000;
   min-height: 115px;
   line-height: 1.5em;
   letter-spacing: 0.1px;
