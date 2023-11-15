@@ -24,7 +24,7 @@ export default function ChatComponent() {
         try {
             setLoading(true);
             setAnswer("");
-            const response = await fetch("http://localhost:8000/chatGpt", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}/chatGpt`, {
                 method: "post",
                 headers: {
                     Accept: "application/json, text/plain, */*", // indicates which files we are able to understand
