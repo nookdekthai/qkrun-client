@@ -1,3 +1,4 @@
+"use client"
 import { Avatar } from '@mui/material';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
@@ -42,6 +43,12 @@ const CHAT_STATUS = {
 
 }
 
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts:any = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
 
 
 const ChatBox = ({ user }) => {
@@ -94,11 +101,12 @@ const ChatBox = ({ user }) => {
             setLoading(true);
             setChatStatus(CHAT_STATUS.START)
             setAnswer("");
-            const response = await fetch(`${process.env.NEXT_PUBLIC_ORIGIN_URI}/api/v1/chat`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/chat`, {
                 method: "post",
                 headers: {
                     Accept: "application/json, text/plain, */*", // indicates which files we are able to understand
                     "Content-Type": "application/json", // indicates what the server actually sent
+                    access_token: getCookie('access_token')
                 },
                 body: JSON.stringify({ message: prompt }), // server is expecting JSON
             });
