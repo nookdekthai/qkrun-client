@@ -14,6 +14,7 @@ import { VscVerifiedFilled } from "react-icons/vsc";
 import { useCreateOrderMutation } from "@/redux/features/orders/ordersApi";
 import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
+import LoadingBackDrop from "../Loader/LoadingBackDrop";
 
 type Props = {
   data: any;
@@ -33,7 +34,7 @@ const CourseDetails = ({
   const { data: userData, refetch } = useLoadUserQuery(undefined, {});
   const [user, setUser] = useState<any>();
   const [open, setOpen] = useState(false);
-  const [createOrder, { data: orderData, error }] = useCreateOrderMutation();
+  const [createOrder, { data: orderData, error, isLoading }] = useCreateOrderMutation();
 
   useEffect(() => {
     setUser(userData?.user);
@@ -79,6 +80,9 @@ const CourseDetails = ({
 
   return (
     <div>
+      {
+        isLoading && <LoadingBackDrop/>
+      }
       <div className="w-[90%] 800px:w-[90%] m-auto py-5">
         <div className="w-full flex flex-col-reverse 800px:flex-row">
           <div className="w-full 800px:w-[65%] 800px:pr-5">
@@ -266,7 +270,10 @@ const CourseDetails = ({
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     onClick={handleOrder}
                   >
-                    Buy Now {data.price}฿
+                    {
+                      data.price === 0 ? `Free` : `Buy Now ${data.price}฿`
+                    }
+                    
                   </div>
                 )}
               </div>
