@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 const ChatSystem = ({ message }) => {
     console.log('in chat ', message);
 
-    return <div className="col-start-1 col-end-8 p-3 rounded-lg">
+    return <div className="col-start-1 col-end-13 md:col-end-8 p-3 rounded-lg">
         <div className="flex flex-row items-center">
             <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
                 <Avatar alt="Remy Sharp" src='/systemChatImage.jpg' />
@@ -94,7 +94,7 @@ const ChatBox = ({ user }) => {
             setLoading(true);
             setChatStatus(CHAT_STATUS.START)
             setAnswer("");
-            const response = await fetch(`${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}/chatGpt`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_ORIGIN_URI}/api/v1/chat`, {
                 method: "post",
                 headers: {
                     Accept: "application/json, text/plain, */*", // indicates which files we are able to understand
