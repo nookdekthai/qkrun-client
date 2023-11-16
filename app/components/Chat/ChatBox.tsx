@@ -103,10 +103,11 @@ const ChatBox = ({ user }) => {
             setAnswer("");
             const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/chat`, {
                 method: "post",
+                credentials: 'include',
                 headers: {
                     Accept: "application/json, text/plain, */*", // indicates which files we are able to understand
                     "Content-Type": "application/json", // indicates what the server actually sent
-                    access_token: getCookie('access_token')
+                    tokenx: getCookie('access_token')
                 },
                 body: JSON.stringify({ message: prompt }), // server is expecting JSON
             });
