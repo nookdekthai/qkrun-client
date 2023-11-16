@@ -91,7 +91,7 @@ const EbookDetails = ({
   useEffect(() => {
     if (orderDataEbook) {
       refetch();
-      router.push(`/course-access/${ebookInfo._id}`);
+      handleClickView()
     }
     if (errorEbook) {
       if ("data" in errorEbook) {
