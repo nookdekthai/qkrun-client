@@ -11,6 +11,9 @@ import CheckOutForm from "../Payment/CheckOutForm";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import Image from "next/image";
 import { VscVerifiedFilled } from "react-icons/vsc";
+import { useCreateOrderMutation } from "@/redux/features/orders/ordersApi";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 type Props = {
   data: any;
@@ -27,9 +30,10 @@ const CourseDetails = ({
   setRoute,
   setOpen: openAuthModal,
 }: Props) => {
-  const { data: userData,refetch } = useLoadUserQuery(undefined, {});
+  const { data: userData, refetch } = useLoadUserQuery(undefined, {});
   const [user, setUser] = useState<any>();
   const [open, setOpen] = useState(false);
+  const [createOrder, { data: orderData, error }] = useCreateOrderMutation();
 
   useEffect(() => {
     setUser(userData?.user);
@@ -45,12 +49,33 @@ const CourseDetails = ({
 
   const handleOrder = (e: any) => {
     if (user) {
-      setOpen(true);
+      if (data.price == 0) {
+        createOrder({
+          isFree: true,
+          courseId: data._id
+        })
+      } else {
+        setOpen(true);
+      }
     } else {
       setRoute("Login");
       openAuthModal(true);
     }
   };
+
+
+  useEffect(() => {
+    if (orderData) {
+      refetch();
+      redirect(`/course-access/${data._id}`);
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+  }, [orderData, error])
 
   return (
     <div>
@@ -276,7 +301,7 @@ const CourseDetails = ({
               <div className="w-full">
                 {stripePromise && clientSecret && (
                   <Elements stripe={stripePromise} options={{ clientSecret }}>
-                    <CheckOutForm setOpen={setOpen} data={data} user={user} refetch={refetch} payForm="course"/>
+                    <CheckOutForm setOpen={setOpen} data={data} user={user} refetch={refetch} payForm="course" />
                   </Elements>
                 )}
               </div>

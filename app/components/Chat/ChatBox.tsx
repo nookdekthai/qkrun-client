@@ -157,7 +157,7 @@ const ChatBox = ({ user }) => {
                     </div>
                 </div>
             </div> */}
-            <div className="flex flex-col flex-auto  p-6">
+            <div className="flex flex-col flex-auto p-0 md:p-6">
                 <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100  p-4">
                     <div className="flex flex-col  overflow-x-auto mb-4 max-h-[200px]" ref={containerRef}>
                         <div className="flex flex-col ">
