@@ -8,6 +8,7 @@ import CoursePreview from "./CoursePreview";
 import { useCreateCourseMutation } from "../../../../redux/features/courses/coursesApi";
 import { toast } from "react-hot-toast";
 import { redirect } from "next/navigation";
+import QuizCourse from "./QuizCourse";
 
 type Props = {};
 
@@ -62,6 +63,11 @@ const CreateCourse = (props: Props) => {
 
   const [courseData, setCourseData] = useState({});
 
+  const [quiz, setQuiz] = useState({
+    quizLabel: "",
+    quizLink: ""
+  })
+
 
   const handleSubmit = async () => {
     // Format benefits array
@@ -104,6 +110,7 @@ const CreateCourse = (props: Props) => {
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,
       courseData: formattedCourseContentData,
+      ...quiz
     };
     setCourseData(data);
   };
@@ -149,6 +156,18 @@ const CreateCourse = (props: Props) => {
         )}
 
         {active === 3 && (
+          <QuizCourse
+            active={active}
+            setActive={setActive}
+            courseContentData={courseContentData}
+            setCourseContentData={setCourseContentData}
+            handleSubmit={handleSubmit}
+            quiz={quiz}
+            setQuiz={setQuiz}
+          />
+        )}
+
+        {active === 4 && (
           <CoursePreview
             active={active}
             setActive={setActive}

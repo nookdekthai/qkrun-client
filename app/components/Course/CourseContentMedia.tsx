@@ -51,6 +51,7 @@ const CourseContentMedia = ({
   const [reply, setReply] = useState("");
   const [reviewId, setReviewId] = useState("");
   const [isReviewReply, setIsReviewReply] = useState(false);
+  const [courseTab, setCourseTab] = useState([]);
 
   const [
     addNewQuestion,
@@ -102,6 +103,19 @@ const CourseContentMedia = ({
       });
     }
   };
+
+  useEffect(() => {
+    let tabs: any = ["Overview", "Resources", "Q&A", "Reviews"]
+
+    if(courseData?.course.quizLabel){
+      tabs.push(courseData.course.quizLabel)
+    }else{
+      tabs.push('Quiz')
+    }
+
+    setCourseTab(tabs)
+
+  }, [courseData?.course])
 
   useEffect(() => {
     if (isSuccess) {
@@ -243,14 +257,13 @@ const CourseContentMedia = ({
       </h1>
       <br />
       <div className="w-full p-4 flex items-center justify-between bg-slate-500 bg-opacity-20 backdrop-blur shadow-[bg-slate-700] rounded shadow-inner">
-        {["Overview", "Resources", "Q&A", "Reviews"].map((text, index) => (
+        {courseTab.map((text, index) => (
           <h5
             key={index}
-            className={`800px:text-[20px] cursor-pointer ${
-              activeBar === index
-                ? "text-red-500"
-                : "dark:text-white text-black"
-            }`}
+            className={`800px:text-[20px] cursor-pointer ${activeBar === index
+              ? "text-red-500"
+              : "dark:text-white text-black"
+              }`}
             onClick={() => setactiveBar(index)}
           >
             {text}
@@ -337,6 +350,16 @@ const CourseContentMedia = ({
           </div>
         </>
       )}
+      {activeBar === 4 && (
+        <>
+          <div className="flex w-full">
+            {
+              course.quizLink &&  <iframe id="inlineFrameExample" title="Inline Frame Example" width={'100%'} height={500} src={course.quizLink}/>
+            }
+          
+          </div>
+        </>
+      )}
 
       {activeBar === 3 && (
         <div className="w-full">
@@ -413,7 +436,7 @@ const CourseContentMedia = ({
             <div className="w-full">
               {(course?.reviews && [...course.reviews].reverse())?.map(
                 (item: any, index: number) => {
-                  
+
                   return (
                     <div className="w-full my-5 dark:text-white text-black" key={index}>
                       <div className="w-full flex">
@@ -505,7 +528,7 @@ const CourseContentMedia = ({
           </>
         </div>
       )}
-      <ChatBox user={user}/>
+      <ChatBox user={user} />
     </div>
   );
 };
@@ -601,7 +624,7 @@ const CommentItem = ({
           </span>
         </div>
 
-        {replyActive && questionId === item._id &&  (
+        {replyActive && questionId === item._id && (
           <>
             {item.questionReplies.map((item: any) => (
               <div className="w-full flex 800px:ml-16 my-5 text-black dark:text-white" key={item._id}>
@@ -639,10 +662,9 @@ const CommentItem = ({
                   placeholder="Enter your answer..."
                   value={answer}
                   onChange={(e: any) => setAnswer(e.target.value)}
-                  className={`block 800px:ml-12 mt-2 outline-none bg-transparent border-b border-[#00000027] dark:text-white text-black dark:border-[#fff] p-[5px] w-[95%] ${
-                    answer === "" ||
+                  className={`block 800px:ml-12 mt-2 outline-none bg-transparent border-b border-[#00000027] dark:text-white text-black dark:border-[#fff] p-[5px] w-[95%] ${answer === "" ||
                     (answerCreationLoading && "cursor-not-allowed")
-                  }`}
+                    }`}
                 />
                 <button
                   type="submit"
@@ -658,7 +680,7 @@ const CommentItem = ({
           </>
         )}
       </div>
-      <div className="mb-[20rem]"/>
+      <div className="mb-[20rem]" />
     </>
   );
 };

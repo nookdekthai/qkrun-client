@@ -8,20 +8,59 @@ import CoursePreview from "./CoursePreview";
 import { useEditCourseMutation, useGetAllCoursesQuery } from "../../../../redux/features/courses/coursesApi";
 import { toast } from "react-hot-toast";
 import { redirect } from "next/navigation";
+import QuizCourse from "./QuizCourse";
 
 type Props = {
-    id: string;
+  id: string;
 };
 
-const EditCourse:FC<Props> = ({id}) => {
-    const [editCourse,{isSuccess,error}] = useEditCourseMutation();
-    const { data, refetch } = useGetAllCoursesQuery(
-        {},
-        { refetchOnMountOrArgChange: true }
-      );
-    
-      const editCourseData = data && data.courses.find((i:any) => i._id === id);
-      
+const EditCourse: FC<Props> = ({ id }) => {
+  const [editCourse, { isSuccess, error }] = useEditCourseMutation();
+  const { data, refetch } = useGetAllCoursesQuery(
+    {},
+    { refetchOnMountOrArgChange: true }
+  );
+
+  const editCourseData = data && data.courses.find((i: any) => i._id === id);
+
+
+  const [courseInfo, setCourseInfo] = useState({
+    name: "",
+    description: "",
+    price: "",
+    estimatedPrice: "",
+    tags: "",
+    level: "",
+    categories: "",
+    demoUrl: "",
+    thumbnail: "",
+  });
+  const [benefits, setBenefits] = useState([{ title: "" }]);
+  const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
+  const [courseContentData, setCourseContentData] = useState([
+    {
+      videoUrl: "",
+      title: "",
+      description: "",
+      videoSection: "Untitled Section",
+      links: [
+        {
+          title: "",
+          url: "",
+        },
+      ],
+      suggestion: "",
+    },
+  ]);
+
+  const [quiz, setQuiz] = useState({
+    quizLabel: "",
+    quizLink: ""
+  })
+
+  const [courseData, setCourseData] = useState({});
+
+
   useEffect(() => {
     if (isSuccess) {
       toast.success("Course Updated successfully");
@@ -47,47 +86,20 @@ const EditCourse:FC<Props> = ({id}) => {
         estimatedPrice: editCourseData?.estimatedPrice,
         tags: editCourseData.tags,
         level: editCourseData.level,
-        categories:editCourseData.categories,
+        categories: editCourseData.categories,
         demoUrl: editCourseData.demoUrl,
         thumbnail: editCourseData?.thumbnail?.url,
       })
       setBenefits(editCourseData.benefits);
       setPrerequisites(editCourseData.prerequisites);
       setCourseContentData(editCourseData.courseData);
+      setQuiz({
+        quizLabel: editCourseData.quizLabel || '',
+        quizLink: editCourseData.quizLink || '',
+      })
     }
   }, [editCourseData]);
 
-
-  const [courseInfo, setCourseInfo] = useState({
-    name: "",
-    description:  "",
-    price:  "",
-    estimatedPrice:  "",
-    tags: "",
-    level:  "",
-    categories:"",
-    demoUrl:  "",
-    thumbnail:  "",
-  });
-  const [benefits, setBenefits] = useState([{ title: "" }]);
-  const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
-  const [courseContentData, setCourseContentData] = useState([
-    {
-      videoUrl: "",
-      title: "",
-      description: "",
-      videoSection: "Untitled Section",
-      links: [
-        {
-          title: "",
-          url: "",
-        },
-      ],
-      suggestion: "",
-    },
-  ]);
-
-  const [courseData, setCourseData] = useState({});
 
 
   const handleSubmit = async () => {
@@ -130,6 +142,7 @@ const EditCourse:FC<Props> = ({id}) => {
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,
       courseContent: formattedCourseContentData,
+      ...quiz
     };
 
     setCourseData(data);
@@ -138,7 +151,7 @@ const EditCourse:FC<Props> = ({id}) => {
 
   const handleCourseCreate = async (e: any) => {
     const data = courseData;
-    await editCourse({id:editCourseData?._id,data});
+    await editCourse({ id: editCourseData?._id, data });
   };
 
   return (
@@ -175,6 +188,18 @@ const EditCourse:FC<Props> = ({id}) => {
         )}
 
         {active === 3 && (
+          <QuizCourse
+            active={active}
+            setActive={setActive}
+            courseContentData={courseContentData}
+            setCourseContentData={setCourseContentData}
+            handleSubmit={handleSubmit}
+            quiz={quiz}
+            setQuiz={setQuiz}
+          />
+        )}
+
+        {active === 4 && (
           <CoursePreview
             active={active}
             setActive={setActive}
@@ -185,7 +210,7 @@ const EditCourse:FC<Props> = ({id}) => {
         )}
       </div>
       <div className="w-[20%] mt-[100px] h-screen fixed z-[-1] top-18 right-0">
-        <CourseOptions active={active} setActive={setActive}  />
+        <CourseOptions active={active} setActive={setActive} />
       </div>
     </div>
   );
