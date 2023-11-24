@@ -8,7 +8,6 @@ import CoursePreview from "./CoursePreview";
 import { useEditCourseMutation, useGetAllCoursesQuery } from "../../../../redux/features/courses/coursesApi";
 import { toast } from "react-hot-toast";
 import { redirect } from "next/navigation";
-import QuizCourse from "./QuizCourse";
 
 type Props = {
   id: string;
@@ -37,7 +36,7 @@ const EditCourse: FC<Props> = ({ id }) => {
   });
   const [benefits, setBenefits] = useState([{ title: "" }]);
   const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
-  const [courseContentData, setCourseContentData] = useState([
+  let [courseContentData, setCourseContentData] = useState([
     {
       videoUrl: "",
       title: "",
@@ -50,13 +49,10 @@ const EditCourse: FC<Props> = ({ id }) => {
         },
       ],
       suggestion: "",
+      quizLabel: '',
+      quizLink: '',
     },
   ]);
-
-  const [quiz, setQuiz] = useState({
-    quizLabel: "",
-    quizLink: ""
-  })
 
   const [courseData, setCourseData] = useState({});
 
@@ -88,15 +84,11 @@ const EditCourse: FC<Props> = ({ id }) => {
         level: editCourseData.level,
         categories: editCourseData.categories,
         demoUrl: editCourseData.demoUrl,
-        thumbnail: editCourseData?.thumbnail?.url,
+        thumbnail: editCourseData?.thumbnail?.url
       })
       setBenefits(editCourseData.benefits);
       setPrerequisites(editCourseData.prerequisites);
-      setCourseContentData(editCourseData.courseData);
-      setQuiz({
-        quizLabel: editCourseData.quizLabel || '',
-        quizLink: editCourseData.quizLink || '',
-      })
+      setCourseContentData(editCourseData.courseData); 
     }
   }, [editCourseData]);
 
@@ -115,6 +107,7 @@ const EditCourse: FC<Props> = ({ id }) => {
     // Format course content array
     const formattedCourseContentData = courseContentData.map(
       (courseContent) => ({
+        ...courseContent,
         videoUrl: courseContent.videoUrl,
         title: courseContent.title,
         description: courseContent.description,
@@ -142,8 +135,8 @@ const EditCourse: FC<Props> = ({ id }) => {
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,
       courseContent: formattedCourseContentData,
-      ...quiz
     };
+    console.log("🚀 ~ file: EditCourse.tsx:147 ~ handleSubmit ~ data:", data)
 
     setCourseData(data);
   };
@@ -188,18 +181,6 @@ const EditCourse: FC<Props> = ({ id }) => {
         )}
 
         {active === 3 && (
-          <QuizCourse
-            active={active}
-            setActive={setActive}
-            courseContentData={courseContentData}
-            setCourseContentData={setCourseContentData}
-            handleSubmit={handleSubmit}
-            quiz={quiz}
-            setQuiz={setQuiz}
-          />
-        )}
-
-        {active === 4 && (
           <CoursePreview
             active={active}
             setActive={setActive}

@@ -11,7 +11,6 @@ const CourseOptions: FC<Props> = ({ active, setActive }) => {
         "Course Information",
         "Course Options",
         "Course Content",
-        "Quiz",
         "Course Preview",
       ];
     return (
@@ -29,7 +28,7 @@ const CourseOptions: FC<Props> = ({ active, setActive }) => {
                 className={`absolute h-[30px] w-1 ${
                   active + 1 > index ? "bg-blue-500" : "bg-[#384766]"
                 } bottom-[-100%]`}
-              />
+              /> 
             )}
           </div>
           <h5

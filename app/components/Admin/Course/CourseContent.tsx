@@ -43,8 +43,14 @@ const CourseContent: FC<Props> = ({
   };
 
   const handleAddLink = (index: number) => {
-    const updatedData = [...courseContentData];
-    updatedData[index].links.push({ title: "", url: "" });
+    let updatedData = [...courseContentData];
+    updatedData[index] = {
+      ...updatedData[index],
+      links: [
+        ...updatedData[index].links,
+        { title: "", url: "" }
+      ]
+    };
     setCourseContentData(updatedData);
   };
 
@@ -77,6 +83,8 @@ const CourseContent: FC<Props> = ({
         videoSection: newVideoSection,
         videoLength: "",
         links: [{ title: "", url: "" }],
+        quizLabel: "",
+        quizLink: '',
       };
 
       setCourseContentData([...courseContentData, newContent]);
@@ -100,6 +108,8 @@ const CourseContent: FC<Props> = ({
         description: "",
         videoLength: "",
         videoSection: `Untitled Section ${activeSection}`,
+        quizLabel: "",
+        quizLink: '',
         links: [{ title: "", url: "" }],
       };
       setCourseContentData([...courseContentData, newContent]);
@@ -136,25 +146,24 @@ const CourseContent: FC<Props> = ({
           return (
             <>
               <div
-                className={`w-full bg-[#cdc8c817] p-4 ${
-                  showSectionInput ? "mt-10" : "mb-0"
-                }`}
-                key={index}
+                className={`w-full bg-[#cdc8c817] p-4 ${showSectionInput ? "mt-10" : "mb-0"
+                  }`}
+                key={`courseContentData-${index}`}
               >
                 {showSectionInput && (
                   <>
                     <div className="flex w-full items-center">
                       <input
                         type="text"
-                        className={`text-[20px] ${
-                          item.videoSection === "Untitled Section"
-                            ? "w-[170px]"
-                            : "w-min"
-                        } font-Poppins cursor-pointer dark:text-white text-black bg-transparent outline-none`}
+                        className={`text-[20px] ${item.videoSection === "Untitled Section"
+                          ? "w-[170px]"
+                          : "w-min"
+                          } font-Poppins cursor-pointer dark:text-white text-black bg-transparent outline-none`}
                         value={item.videoSection}
                         onChange={(e) => {
                           const updatedData = [...courseContentData];
-                          updatedData[index].videoSection = e.target.value;
+                          // updatedData[index].videoSection = e.target.value;
+                          updatedData[index] = { ...updatedData[index], videoSection: e.target.value };
                           setCourseContentData(updatedData);
                         }}
                       />
@@ -182,9 +191,8 @@ const CourseContent: FC<Props> = ({
                   {/* // arrow button for collasped video content */}
                   <div className="flex items-center">
                     <AiOutlineDelete
-                      className={`dark:text-white text-[20px] mr-2 text-black ${
-                        index > 0 ? "cursor-pointer" : "cursor-no-drop"
-                      }`}
+                      className={`dark:text-white text-[20px] mr-2 text-black ${index > 0 ? "cursor-pointer" : "cursor-no-drop"
+                        }`}
                       onClick={() => {
                         if (index > 0) {
                           const updatedData = [...courseContentData];
@@ -216,7 +224,8 @@ const CourseContent: FC<Props> = ({
                         value={item.title}
                         onChange={(e) => {
                           const updatedData = [...courseContentData];
-                          updatedData[index].title = e.target.value;
+                          // updatedData[index].title = e.target.value;
+                          updatedData[index] = { ...updatedData[index], title: e.target.value };
                           setCourseContentData(updatedData);
                         }}
                       />
@@ -230,7 +239,8 @@ const CourseContent: FC<Props> = ({
                         value={item.videoUrl}
                         onChange={(e) => {
                           const updatedData = [...courseContentData];
-                          updatedData[index].videoUrl = e.target.value;
+                          // updatedData[index].videoUrl = e.target.value;
+                          updatedData[index] = { ...updatedData[index], videoUrl: e.target.value };
                           setCourseContentData(updatedData);
                         }}
                       />
@@ -244,12 +254,13 @@ const CourseContent: FC<Props> = ({
                         value={item.videoLength}
                         onChange={(e) => {
                           const updatedData = [...courseContentData];
-                          updatedData[index].videoLength = e.target.value;
+                          // updatedData[index].videoLength = e.target.value;
+                          updatedData[index] = { ...updatedData[index], videoLength: e.target.value };
                           setCourseContentData(updatedData);
                         }}
                       />
                     </div>
-                    
+
 
                     <div className="mb-3">
                       <label className={styles.label}>Video Description</label>
@@ -261,57 +272,99 @@ const CourseContent: FC<Props> = ({
                         value={item.description}
                         onChange={(e) => {
                           const updatedData = [...courseContentData];
-                          updatedData[index].description = e.target.value;
+                          // updatedData[index].description = e.target.value;
+                          updatedData[index] = { ...updatedData[index], description: e.target.value };
                           setCourseContentData(updatedData);
                         }}
                       />
                       <br />
                     </div>
-                    {item?.links.map((link: any, linkIndex: number) => (
-                      <div className="mb-3 block" key={linkIndex}>
-                        <div className="w-full flex items-center justify-between">
-                          <label className={styles.label}>
-                            Link {linkIndex + 1}
-                          </label>
-                          <AiOutlineDelete
-                            className={`${
-                              linkIndex === 0
+                    <div className="mb-3">
+                      <label className={styles.label}>Quiz Label</label>
+                      <input
+                        type="text"
+                        placeholder="Quiz..."
+                        className={`${styles.input}`}
+                        value={item.quizLabel}
+                        onChange={(e) => {
+                          let updatedData = [...courseContentData];
+                          // updatedData[index].quizLabel = e.target.value;
+                          updatedData[index] = { ...updatedData[index], quizLabel: e.target.value };
+                          setCourseContentData([...updatedData]);
+                        }}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label className={styles.label}>Quiz Link</label>
+                      <input
+                        type="text"
+                        placeholder="https://take.quiz-maker.com/abc..."
+                        className={`${styles.input}`}
+                        value={item.quizLink}
+                        onChange={(e) => {
+                          let updatedData = [...courseContentData];
+                          // updatedData[index].quizLink = e.target.value;
+                          updatedData[index] = { ...updatedData[index], quizLink: e.target.value };
+                          setCourseContentData([...updatedData]);
+                        }}
+                      />
+                    </div>
+                    {item?.links.map((link: any, linkIndex: number) => {
+                      console.log('link => ', item?.links, link, linkIndex);
+
+                      return (
+                        <div className="mb-3 block" key={`linkIndex-${index}-${linkIndex}`}>
+                          <div className="w-full flex items-center justify-between">
+                            <label className={styles.label}>
+                              Link {linkIndex + 1}
+                            </label>
+                            <AiOutlineDelete
+                              className={`${linkIndex === 0
                                 ? "cursor-no-drop"
                                 : "cursor-pointer"
-                            } text-black dark:text-white text-[20px]`}
-                            onClick={() =>
-                              linkIndex === 0
-                                ? null
-                                : handleRemoveLink(index, linkIndex)
-                            }
+                                } text-black dark:text-white text-[20px]`}
+                              onClick={() =>
+                                linkIndex === 0
+                                  ? null
+                                  : handleRemoveLink(index, linkIndex)
+                              }
+                            />
+                          </div>
+                          <input
+                            type="text"
+                            placeholder="Source Code... (Link title)"
+                            className={`${styles.input}`}
+                            value={link.title}
+                            onChange={(e) => {
+                              let updatedData = [...courseContentData];
+                              // updatedData[index].links[linkIndex].title = 
+                              //   e.target.value;
+                              updatedData[index].links[linkIndex] = { ...updatedData[index].links[linkIndex], title: e.target.value };
+
+                              setCourseContentData(updatedData);
+                            }}
+                          />
+                          <input
+                            type="url"
+                            placeholder="Source Code Url... (Link URL)"
+                            className={`${styles.input} mt-6`}
+                            value={link.url}
+                            onChange={(e) => {
+                              let updatedData = [...courseContentData];
+                              console.log("🚀 ~ file: CourseContent.tsx:353 ~ {item?.links.map ~ updatedData:", updatedData)
+                              // updatedData[index].links[linkIndex].url =
+                              //   e.target.value;
+                              let newLink = { ...updatedData[index].links[linkIndex], url: e.target.value }
+                              console.log("🚀 ~ file: CourseContent.tsx:357 ~ {item?.links.map ~ newLink:", newLink)
+                              updatedData[index].links[linkIndex] = newLink
+                              setCourseContentData(updatedData);
+                            }}
                           />
                         </div>
-                        <input
-                          type="text"
-                          placeholder="Source Code... (Link title)"
-                          className={`${styles.input}`}
-                          value={link.title}
-                          onChange={(e) => {
-                            const updatedData = [...courseContentData];
-                            updatedData[index].links[linkIndex].title =
-                              e.target.value;
-                            setCourseContentData(updatedData);
-                          }}
-                        />
-                        <input
-                          type="url"
-                          placeholder="Source Code Url... (Link URL)"
-                          className={`${styles.input} mt-6`}
-                          value={link.url}
-                          onChange={(e) => {
-                            const updatedData = [...courseContentData];
-                            updatedData[index].links[linkIndex].url =
-                              e.target.value;
-                            setCourseContentData(updatedData);
-                          }}
-                        />
-                      </div>
-                    ))}
+                      )
+                    }
+                    )
+                    }
                     <br />
                     {/* add link button */}
                     <div className="inline-block mb-4">

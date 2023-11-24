@@ -107,8 +107,8 @@ const CourseContentMedia = ({
   useEffect(() => {
     let tabs: any = ["Overview", "Resources", "Q&A", "Reviews"]
 
-    if(courseData?.course.quizLabel){
-      tabs.push(courseData.course.quizLabel)
+    if(data[activeVideo].quizLabel){
+      tabs.push(data[activeVideo].quizLabel)
     }else{
       tabs.push('Quiz')
     }
@@ -354,9 +354,8 @@ const CourseContentMedia = ({
         <>
           <div className="flex w-full">
             {
-              course.quizLink &&  <iframe id="inlineFrameExample" title="Inline Frame Example" width={'100%'} height={500} src={course.quizLink}/>
+              data[activeVideo]?.quizLink  ?  <iframe id="inlineFrameExample" title="Inline Frame Example" width={'100%'} height={500} src={data[activeVideo].quizLink}/> : null
             }
-          
           </div>
         </>
       )}

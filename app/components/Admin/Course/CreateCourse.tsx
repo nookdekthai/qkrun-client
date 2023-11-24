@@ -57,17 +57,13 @@ const CreateCourse = (props: Props) => {
         },
       ],
       suggestion: "",
+      quizLabel: '',
+      quizLink: ''
     },
   ]);
 
 
   const [courseData, setCourseData] = useState({});
-
-  const [quiz, setQuiz] = useState({
-    quizLabel: "",
-    quizLink: ""
-  })
-
 
   const handleSubmit = async () => {
     // Format benefits array
@@ -82,6 +78,7 @@ const CreateCourse = (props: Props) => {
     // Format course content array
     const formattedCourseContentData = courseContentData.map(
       (courseContent) => ({
+        ...courseContent,
         videoUrl: courseContent.videoUrl,
         title: courseContent.title,
         description: courseContent.description,
@@ -110,13 +107,13 @@ const CreateCourse = (props: Props) => {
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,
       courseData: formattedCourseContentData,
-      ...quiz
     };
     setCourseData(data);
   };
 
   const handleCourseCreate = async (e: any) => {
     const data = courseData;
+    console.log("🚀 ~ file: CreateCourse.tsx:123 ~ handleCourseCreate ~ data:", data)
     if (!isLoading) {
       await createCourse(data);
     }
@@ -155,7 +152,7 @@ const CreateCourse = (props: Props) => {
           />
         )}
 
-        {active === 3 && (
+        {/* {active === 3 && (
           <QuizCourse
             active={active}
             setActive={setActive}
@@ -165,9 +162,9 @@ const CreateCourse = (props: Props) => {
             quiz={quiz}
             setQuiz={setQuiz}
           />
-        )}
+        )} */}
 
-        {active === 4 && (
+        {active === 3 && (
           <CoursePreview
             active={active}
             setActive={setActive}
