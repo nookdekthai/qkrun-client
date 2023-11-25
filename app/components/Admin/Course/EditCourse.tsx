@@ -5,7 +5,10 @@ import CourseOptions from "./CourseOptions";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
 import CoursePreview from "./CoursePreview";
-import { useEditCourseMutation, useGetAllCoursesQuery } from "../../../../redux/features/courses/coursesApi";
+import {
+  useEditCourseMutation,
+  useGetAllCoursesQuery,
+} from "../../../../redux/features/courses/coursesApi";
 import { toast } from "react-hot-toast";
 import { redirect } from "next/navigation";
 
@@ -21,42 +24,6 @@ const EditCourse: FC<Props> = ({ id }) => {
   );
 
   const editCourseData = data && data.courses.find((i: any) => i._id === id);
-
-
-  const [courseInfo, setCourseInfo] = useState({
-    name: "",
-    description: "",
-    price: "",
-    estimatedPrice: "",
-    tags: "",
-    level: "",
-    categories: "",
-    demoUrl: "",
-    thumbnail: "",
-  });
-  const [benefits, setBenefits] = useState([{ title: "" }]);
-  const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
-  let [courseContentData, setCourseContentData] = useState([
-    {
-      videoUrl: "",
-      title: "",
-      description: "",
-      videoSection: "Untitled Section",
-      links: [
-        {
-          title: "",
-          url: "",
-        },
-      ],
-      suggestion: "",
-      quizLabel: '',
-      quizLink: '',
-    },
-  ]);
-
-  const [courseData, setCourseData] = useState({});
-
-
   useEffect(() => {
     if (isSuccess) {
       toast.success("Course Updated successfully");
@@ -69,7 +36,6 @@ const EditCourse: FC<Props> = ({ id }) => {
       }
     }
   }, [isSuccess, error]);
-
 
   const [active, setActive] = useState(0);
 
@@ -84,15 +50,45 @@ const EditCourse: FC<Props> = ({ id }) => {
         level: editCourseData.level,
         categories: editCourseData.categories,
         demoUrl: editCourseData.demoUrl,
-        thumbnail: editCourseData?.thumbnail?.url
-      })
+        thumbnail: editCourseData?.thumbnail?.url,
+      });
       setBenefits(editCourseData.benefits);
       setPrerequisites(editCourseData.prerequisites);
-      setCourseContentData(editCourseData.courseData); 
+      setCourseContentData(editCourseData.courseData);
     }
   }, [editCourseData]);
 
+  const [courseInfo, setCourseInfo] = useState({
+    name: "",
+    description: "",
+    price: "",
+    estimatedPrice: "",
+    tags: "",
+    level: "",
+    categories: "",
+    demoUrl: "",
+    thumbnail: "",
+  });
+  const [benefits, setBenefits] = useState([{ title: "" }]);
+  const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
+  const [courseContentData, setCourseContentData] = useState([
+    {
+      videoUrl: "",
+      title: "",
+      description: "",
+      videoSection: "Untitled Section",
+      videoLength: "",
+      links: [
+        {
+          title: "",
+          url: "",
+        },
+      ],
+      suggestion: "",
+    },
+  ]);
 
+  const [courseData, setCourseData] = useState({});
 
   const handleSubmit = async () => {
     // Format benefits array
@@ -107,11 +103,11 @@ const EditCourse: FC<Props> = ({ id }) => {
     // Format course content array
     const formattedCourseContentData = courseContentData.map(
       (courseContent) => ({
-        ...courseContent,
         videoUrl: courseContent.videoUrl,
         title: courseContent.title,
         description: courseContent.description,
         videoSection: courseContent.videoSection,
+        videoLength: courseContent.videoLength,
         links: courseContent.links.map((link) => ({
           title: link.title,
           url: link.url,
@@ -134,13 +130,11 @@ const EditCourse: FC<Props> = ({ id }) => {
       totalVideos: courseContentData.length,
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,
-      courseContent: formattedCourseContentData,
+      courseData: formattedCourseContentData,
     };
-    console.log("🚀 ~ file: EditCourse.tsx:147 ~ handleSubmit ~ data:", data)
 
     setCourseData(data);
   };
-
 
   const handleCourseCreate = async (e: any) => {
     const data = courseData;
