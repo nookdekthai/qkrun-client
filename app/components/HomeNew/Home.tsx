@@ -18,6 +18,7 @@ import Courses from "./Course";
 import TrustBy from "./TrustBy";
 import Ebooks from "./Ebooks";
 import FAQ from "../FAQ/FAQ";
+import { useTheme } from "next-themes";
 
 
 function Home({ webInfo }: any) {
@@ -25,15 +26,20 @@ function Home({ webInfo }: any) {
     const [open, setOpen] = useState(false);
     const [activeItem, setActiveItem] = useState(0);
     const [route, setRoute] = useState("Login");
+    const { theme, setTheme } = useTheme();
     const [activeItemIndex, setActiveItemIndex] = useState(0);
     const chevronWidth = 40;
 
     useEffect(() => {
+        window.localStorage.setItem('theme', 'light')
+        setTheme('light')
         AOS.init({
             once: true,
             delay: 300
         });
     }, [])
+
+
 
 
     return (
