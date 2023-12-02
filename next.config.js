@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['res.cloudinary.com', 'randomuser.me', 'cdn-local.mebmarket.com'],
+    domains: ['res.cloudinary.com', 'randomuser.me', 'cdn-local.mebmarket.com', 'lh3.googleusercontent.com'],
   },
   experimental: {
     reactRoot: true,

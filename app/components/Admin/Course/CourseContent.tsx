@@ -77,6 +77,9 @@ const CourseContent: FC<Props> = ({
         videoSection: newVideoSection,
         videoLength: "",
         links: [{ title: "", url: "" }],
+        quizLabel: "",
+        quizLink: '',
+
       };
 
       setCourseContentData([...courseContentData, newContent]);
@@ -101,6 +104,9 @@ const CourseContent: FC<Props> = ({
         videoLength: "",
         videoSection: `Untitled Section ${activeSection}`,
         links: [{ title: "", url: "" }],
+        quizLabel: "",
+        quizLink: '',
+
       };
       setCourseContentData([...courseContentData, newContent]);
     }
@@ -136,21 +142,19 @@ const CourseContent: FC<Props> = ({
 
           return (
             <div
-              className={`w-full bg-[#cdc8c817] p-4 ${
-                showSectionInput ? "mt-10" : "mb-0"
-              }`}
-              key={index}
+              className={`w-full bg-[#cdc8c817] p-4 ${showSectionInput ? "mt-10" : "mb-0"
+                }`}
+              key={`courseContentData-${index}`}
             >
               {showSectionInput && (
                 <>
                   <div className="flex w-full items-center">
                     <input
                       type="text"
-                      className={`text-[20px] ${
-                        item.videoSection === "Untitled Section"
+                      className={`text-[20px] ${item.videoSection === "Untitled Section"
                           ? "w-[170px]"
                           : "w-min"
-                      } font-Poppins cursor-pointer dark:text-white text-black bg-transparent outline-none`}
+                        } font-Poppins cursor-pointer dark:text-white text-black bg-transparent outline-none`}
                       value={item.videoSection}
                       onChange={(e) => {
                         const updatedData = [...courseContentData];
@@ -185,9 +189,8 @@ const CourseContent: FC<Props> = ({
                 {/* // arrow button for collasped video content */}
                 <div className="flex items-center">
                   <AiOutlineDelete
-                    className={`dark:text-white text-[20px] mr-2 text-black ${
-                      index > 0 ? "cursor-pointer" : "cursor-no-drop"
-                    }`}
+                    className={`dark:text-white text-[20px] mr-2 text-black ${index > 0 ? "cursor-pointer" : "cursor-no-drop"
+                      }`}
                     onClick={() => {
                       if (index > 0) {
                         const updatedData = [...courseContentData];
@@ -283,6 +286,42 @@ const CourseContent: FC<Props> = ({
                     />
                     <br />
                   </div>
+                  <div className="mb-3">
+                    <label className={styles.label}>Quiz Label</label>
+                    <input
+                      type="text"
+                      placeholder="Quiz..."
+                      className={`${styles.input}`}
+                      value={item.quizLabel}
+                      onChange={(e) => {
+                        const updatedData = [...courseContentData];
+                        updatedData[index] = {
+                          ...updatedData[index],
+                          quizLabel: e.target.value,
+                        };
+                        setCourseContentData([...updatedData]);
+                      }}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className={styles.label}>Quiz Link</label>
+                    <input
+                      type="text"
+                      placeholder="https://take.quiz-maker.com/abc..."
+                      className={`${styles.input}`}
+                      value={item.quizLink}
+                      onChange={(e) => {
+                        const updatedData = [...courseContentData];
+                        updatedData[index] = {
+                          ...updatedData[index],
+                          quizLink: e.target.value,
+                        };
+
+                        setCourseContentData([...updatedData]);
+                      }}
+                    />
+                  </div>
+
                   {item?.links.map((link: any, linkIndex: number) => (
                     <div className="mb-3 block" key={linkIndex}>
                       <div className="w-full flex items-center justify-between">
@@ -290,11 +329,10 @@ const CourseContent: FC<Props> = ({
                           Link {linkIndex + 1}
                         </label>
                         <AiOutlineDelete
-                          className={`${
-                            linkIndex === 0
+                          className={`${linkIndex === 0
                               ? "cursor-no-drop"
                               : "cursor-pointer"
-                          } text-black dark:text-white text-[20px]`}
+                            } text-black dark:text-white text-[20px]`}
                           onClick={() =>
                             linkIndex === 0
                               ? null

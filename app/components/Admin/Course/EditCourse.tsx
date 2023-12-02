@@ -85,6 +85,9 @@ const EditCourse: FC<Props> = ({ id }) => {
         },
       ],
       suggestion: "",
+      quizLabel: '',
+      quizLink: '',
+
     },
   ]);
 
@@ -103,6 +106,7 @@ const EditCourse: FC<Props> = ({ id }) => {
     // Format course content array
     const formattedCourseContentData = courseContentData.map(
       (courseContent) => ({
+        ...courseContent,
         videoUrl: courseContent.videoUrl,
         title: courseContent.title,
         description: courseContent.description,
